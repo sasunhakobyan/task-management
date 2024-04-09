@@ -1,7 +1,10 @@
 <script setup></script>
 
 <template>
-  <div class="h-screen bg-emerald-500">
+  <Html class="bg-emerald-500">
+  <div>
     <NuxtPage></NuxtPage>
   </div>
+
+  </Html>
 </template>

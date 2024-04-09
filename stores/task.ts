@@ -4,31 +4,48 @@ import { v4 as uuidv4 } from "uuid";
 import TaskType from "~/types/TaskType";
 import type Column from "~/types/Column";
 
-export const useTaskStore = defineStore<Column[]>("task", {
-  state: () => [
-    {
-      id: uuidv4(),
-      name: TaskType.TODO,
-      tasks: [
-        { id: uuidv4(), title: "New Task1", description: "this is task" },
-        { id: uuidv4(), title: "New Task2", description: "this is task" },
-        { id: uuidv4(), title: "New Task3", description: "this is task" },
-      ],
+export const useTaskStore = defineStore("task", {
+  state: () => {
+    return {
+      columns: [
+        {
+          id: uuidv4(),
+          name: TaskType.TODO,
+          tasks: [],
+        },
+        {
+          id: uuidv4(),
+          name: TaskType.DOING,
+          tasks: [],
+        },
+        {
+          id: uuidv4(),
+          name: TaskType.DONE,
+          tasks: [],
+        },
+      ] as Column[],
+    };
+  },
+  actions: {
+    addTask(taskName: string, columnIndex: number) {
+      this.columns[columnIndex].tasks.push({
+        id: uuidv4(),
+        title: taskName,
+        description: "",
+      });
     },
-    {
-      id: uuidv4(),
-      name: TaskType.DOING,
-      tasks: [],
+    deleteTask(taskId: string) {
+      for (const column of this.columns) {
+        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
+
+        console.log("deleting...");
+
+        if (taskIndex !== -1) {
+          column.tasks.splice(taskIndex, 1);
+        }
+      }
     },
-    {
-      id: uuidv4(),
-      name: TaskType.DONE,
-      tasks: [
-        { id: uuidv4(), title: "New Task4", description: "this is task" },
-        { id: uuidv4(), title: "New Task5", description: "this is task" },
-      ],
-    },
-  ],
+  },
   getters: {
     getTask: (state) => {
       return (taskId: string) => {
