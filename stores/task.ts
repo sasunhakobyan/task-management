@@ -3,56 +3,55 @@ import { v4 as uuidv4 } from "uuid";
 
 import TaskType from "~/types/TaskType";
 import type Column from "~/types/Column";
+import type Task from "~/types/Task";
+
+const ALL_TASKS_TYPES = [TaskType.TODO, TaskType.DOING, TaskType.DONE];
 
 export const useTaskStore = defineStore("task", {
   state: () => {
     return {
-      columns: [
-        {
-          id: uuidv4(),
-          name: TaskType.TODO,
-          tasks: [],
-        },
-        {
-          id: uuidv4(),
-          name: TaskType.DOING,
-          tasks: [],
-        },
-        {
-          id: uuidv4(),
-          name: TaskType.DONE,
-          tasks: [],
-        },
-      ] as Column[],
+      columns: ALL_TASKS_TYPES.map((col) => ({
+        name: col.toString(),
+        type: col,
+        id: uuidv4(),
+      })) as Column[],
+      tasks: [] as Task[],
     };
   },
   actions: {
-    addTask(taskName: string, columnIndex: number) {
-      this.columns[columnIndex].tasks.push({
+    addTask(taskName: string, type: TaskType) {
+      this.tasks.push({
         id: uuidv4(),
         title: taskName,
         description: "",
+        type,
       });
+      this.tasks.length = this.tasks.length;
     },
+
     deleteTask(taskId: string) {
-      for (const column of this.columns) {
-        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
+      let foundTaskIndex = this.tasks.findIndex((t) => t.id === taskId);
+      this.tasks.splice(foundTaskIndex, 1);
+    },
 
-        console.log("deleting...");
-
-        if (taskIndex !== -1) {
-          column.tasks.splice(taskIndex, 1);
-        }
+    updateTaskType(taskId: string, type: TaskType) {
+      let foundTask = this.tasks.find((t) => t.id === taskId);
+      if (!foundTask) {
+        return;
       }
+
+      foundTask.type = type;
     },
   },
   getters: {
+    getTasks: (state) => {
+      return (type: TaskType) => {
+        return state.tasks.filter((t) => t.type === type);
+      };
+    },
     getTask: (state) => {
       return (taskId: string) => {
-        for (const column of state.columns) {
-          const task = column.tasks.find((task) => task.id === taskId);
-          if (task) return task;
-        }
+        return state.tasks.find((t) => t.id === taskId);
       };
     },
   },

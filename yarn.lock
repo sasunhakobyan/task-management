@@ -502,6 +502,11 @@
   resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-2.1.1.tgz#b9da6a878a371829a0502c9b6c1c143ef6663f4d"
   integrity sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==
 
+"@formkit/drag-and-drop@^0.0.38":
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/@formkit/drag-and-drop/-/drag-and-drop-0.0.38.tgz#2f90a6488005ec723e9ae2730ddc3f6b2bf75fec"
+  integrity sha512-3uJFcqz1xL7x/5pClDnyqEDfyFRDFH+75MFpJYXnVF17oekxLrwbUaOBN7ttKGn1jW2MdojRw4WMnSN1iLryvw==
+
 "@headlessui/tailwindcss@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@headlessui/tailwindcss/-/tailwindcss-0.2.0.tgz#2c55c98fd8eee4b4f21ec6eb35a014b840059eec"

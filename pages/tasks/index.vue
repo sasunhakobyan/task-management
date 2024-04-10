@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const route = useRoute();
 const router = useRouter();
 
@@ -17,7 +18,7 @@ function closeModal() {
 <template>
   <div class="p-4 h-full overflow-auto">
     <main class="flex flex-row items-start gap-4">
-      <BoardColumn v-for="(column, columnIndex) in taskStore.columns" :column="column" :columnIndex="columnIndex" />
+      <BoardColumn v-for="(column) in taskStore.columns" :type="column.type" :columnName="column.name" />
     </main>
     <div v-show="isModalOpen" class="absolute inset-0 bg-black/75" @click.self="closeModal">
       <NuxtPage :key="route.fullPath" />

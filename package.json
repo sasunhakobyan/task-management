@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@formkit/drag-and-drop": "^0.0.38",
     "@nuxt/ui": "^2.15.1",
     "@pinia/nuxt": "^0.5.1",
     "@types/uuid": "^9.0.8",
