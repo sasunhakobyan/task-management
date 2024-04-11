@@ -10,7 +10,7 @@ const props = defineProps({
     required: true
   },
   type: {
-    type: Object as PropType<TaskType>,
+    type: String as PropType<TaskType>,
     required: true
   }
 });
