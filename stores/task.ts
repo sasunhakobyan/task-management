@@ -26,12 +26,14 @@ export const useTaskStore = defineStore("task", {
         description: "",
         type,
       });
-      this.tasks.length = this.tasks.length;
     },
 
     deleteTask(taskId: string) {
       let foundTaskIndex = this.tasks.findIndex((t) => t.id === taskId);
       this.tasks.splice(foundTaskIndex, 1);
+      // since we only allow "Delete" UX interaction from the "single-task view",
+      // we need to redirect the user back to the tasks list after deletion
+      return useRouter().push("/tasks");
     },
 
     updateTaskType(taskId: string, type: TaskType) {
